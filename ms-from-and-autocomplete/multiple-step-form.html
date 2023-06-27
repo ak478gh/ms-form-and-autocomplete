@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>multiple-step-form</title>
+    <style>
+        *{
+            font-family: sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .container{
+            width: 70%;
+            margin: auto;
+            border: 1px solid;
+        }
+        form{
+            padding: 20px;
+        }
+        form input{
+            padding: 10px;
+            width: 100%;
+            margin: 10px 0;
+        }
+        #button::after{
+            content: '';
+            display: table;
+            clear: both;
+        }
+        button{
+            padding: 10px;
+            float: right;
+        }
+        .displayNone{
+            display: none;
+        }
+        #previous{
+            display: none;
+        }
+
+        .circles{
+            width: 100px;
+            margin: auto;
+            display: flex;
+        }
+        .circle{
+            width: 15px;
+            height: 15px;
+            background-color: #ccc;
+            margin-right: 10px;
+            border-radius: 50%;
+        }
+        .complete{
+            background-color: greenyellow;
+        }
+        .active{
+            background-color: #aaa;
+        }
+
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <form action="">
+            <h1>Registration</h1>
+
+            <!-- section1: Name -->
+            <div id="section1" class="section">
+                <label for="">Name:</label>
+                <input required type="text" placeholder="first">
+                <input required type="text" placeholder="last">
+            </div>
+            
+            <!-- section2: Contact -->
+            <div id="section2" class="section">
+                <label for="">Contact Info:</label>
+                <input required type="text" id="email" placeholder="Email">
+                <input required type="text" id="phone" placeholder="Phone..">
+            </div>
+
+            <!-- section3: BirthDay -->
+            <div id="section3" class="section">
+                <label for="">BirthDay:</label>
+                <input required type="text" placeholder="dd">
+                <input required type="text" placeholder="mm">
+                <input required type="text" placeholder="yyyy">
+            </div>
+
+            <!-- section4: Login Info -->
+            <div id="section4" class="section">
+                <label for="">Login Info:</label>
+                <input required type="text" placeholder="Username...">
+                <input required type="password" placeholder="Password..">
+            </div>
+
+            <div id="button">
+                <button id="next">Next</button>
+                <button id="previous">Previous</button>
+            </div>
+
+        </form>
+
+        <div class="circles">
+            <div class="circle"></div><div class="circle"></div><div class="circle"></div><div class="circle"></div>
+        </div>
+    </div>
+</body>
+</html>
+
+<script>
+
+    let section1 = document.getElementById('section1')
+    let section2 = document.getElementById('section2')
+    let section3 = document.getElementById('section3')
+    let section4 = document.getElementById('section4')
+
+    let sections = document.getElementsByClassName('section');
+    let circles = document.getElementsByClassName('circle');
+
+    let previous = document.getElementById('previous')
+    let next = document.getElementById('next')
+
+    let presentPage = 1;
+
+    window.onload = hide();
+
+    function hide() {
+        for(let i=0; i<sections.length; i++) {
+            if(presentPage != i+1) {
+                sections[i].classList.add('displayNone');
+                circles[i].classList.remove('active');
+            } else {
+                sections[i].classList.remove('displayNone');
+                circles[i].classList.add('active');
+                console.log(circles[i].classList);
+            }
+        }
+
+        // darken the active circle
+
+    }
+
+    next.addEventListener('click', ()=> {
+        if(presentPage == 4) {
+            next.innerHTML = 'Submit'
+            next.type = 'submit';
+        }
+        presentPage++; //2
+        previous.style.display = 'block';
+        hide();
+        circles[presentPage-2].classList.add('complete')
+    })
+
+    previous.addEventListener('click', ()=> {
+        presentPage--; //2
+        circles[pre]
+        if(presentPage == 1) {
+            previous.style.display = 'none';
+        }
+        hide();
+
+        // classList.length == 2
+
+    })
+
+
+
+
+
+
+</script>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Autocomplete</title>
+    <style>
+        .container{
+            width: 30%;
+            margin: auto;
+        }
+        input:first-child{
+            padding: 10px;
+            background-color: #eae6e6;
+            border: none;
+        }
+        input[type=submit]{
+            padding: 10px;
+            background-color: rgb(54, 157, 54);
+            border: none;
+        }
+        #suggestion >div {
+            padding: 10px;
+            background-color: #eee;
+            font-size: 16px;
+            border: 1px solid #bbb;
+        }
+        #suggestion >div:hover{
+            background-color: #ccc;
+        }
+        #suggestion >div:not(:first-child) {
+            border-top: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Autocomplete</h1>
+
+    <div class="container">
+        <form action="">
+            <input type="text" id="search" placeholder="District...">
+            <input type="submit" value="Submit">
+        </form>
+
+        <div id="suggestion">
+<!-- div -->
+        </div>
+    </div>
+</body>
+</html>
+
+<script>
+    const districtsOfJharkhand = [
+  "Ranchi",
+  "Gumla",
+  "Lohardaga",
+  "Simdega",
+  "Latehar",
+  "Palamu",
+  "Garhwa",
+  "Hazaribagh",
+  "Chatra",
+  "Koderma",
+  "Giridih",
+  "Ramgarh",
+  "Bokaro",
+  "Dhanbad",
+  "Deoghar",
+  "Dumka",
+  "Pakur",
+  "Godda",
+  "Sahebganj",
+  "Jamtara",
+  "Seraikela-Kharsawan",
+  "Khunti",
+  "West Singhbhum",
+  "East Singhbhum"
+];
+
+    let search = document.getElementById('search');
+    let submit = document.getElementById('sumbit');
+    let suggestionDiv = document.getElementById('suggestion');
+
+    let valueToBeSet;
+
+    function setValue() {
+        search.value = valueToBeSet;
+    }
+
+
+    function autocomplete() {
+        suggestionDiv.innerHTML = ''
+
+        let query = search.value.toUpperCase();
+        
+        for(let i=0; i<districtsOfJharkhand.length; i++) {
+            if(districtsOfJharkhand[i].toUpperCase().indexOf(query) == 0) {
+                console.log(districtsOfJharkhand[i]); //'Dumka'
+                let suggestion = document.createElement('div');
+                
+                // text to be bold
+                let toBeBold = districtsOfJharkhand[i].substring(0, query.length);
+                let boldElem = document.createElement('strong');
+                boldElem.innerHTML = toBeBold;
+                // rest of the text
+                let rest = districtsOfJharkhand[i].substring(query.length, );
+                let restElem = document.createElement('p');
+                restElem.innerHTML = rest;
+
+                suggestion.append(boldElem, rest);
+
+                
+                suggestion.addEventListener('click', ()=> {
+                    valueToBeSet = toBeBold + rest;
+                    setValue(valueToBeSet);
+                    suggestionDiv.innerHTML = '';
+                });
+
+                suggestionDiv.append(suggestion);
+            }
+        }
+    }
+    // adding event listner to the search box:
+    search.addEventListener('keyup', autocomplete)
+</script>
